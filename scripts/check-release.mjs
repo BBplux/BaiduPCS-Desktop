@@ -2,6 +2,7 @@ import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 
 const env = { ...process.env };
+const hosted = process.argv.includes("--hosted");
 delete env.ELECTRON_RUN_AS_NODE;
 delete env.VITE_DEV_SERVER_URL;
 // Each desktop check owns the same isolated profile. Always run sequentially.
@@ -28,15 +29,23 @@ const checks = [
     "--window-size-test",
     "--floating-test",
     "--acceptance-test",
-  ].map((flag) => [
-    flag,
-    [
-      "scripts/run-electron-check.mjs",
-      ".",
+  ]
+    .filter(
+      (flag) =>
+        !hosted || !["--window-size-test", "--floating-test"].includes(flag),
+    )
+    .map((flag) => [
       flag,
-      "--force-device-scale-factor=1.25",
-    ],
-  ]),
+      [
+        "scripts/run-electron-check.mjs",
+        ".",
+        flag,
+        ...(hosted && flag === "--ui-style-test"
+          ? ["--ui-style-pages=files,transfers,settings"]
+          : []),
+        "--force-device-scale-factor=1.25",
+      ],
+    ]),
   ...[1, 1.5, 2].map((scale) => [
     `smoke-${scale}`,
     [
