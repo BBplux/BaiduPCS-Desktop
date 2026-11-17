@@ -1,0 +1,111 @@
+name: Build and release Windows
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "24"
+          cache: npm
+      - name: Validate release version
+        run: node scripts/validate-release.mjs
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Prepare pinned backend
+        run: npm run backend:prepare
+      - name: Build application and license notices
+        run: npm run build
+      - name: Run release checks sequentially
+        run: npm run test:release
+      - name: Package Windows x64 installer and portable app
+        run: npm run package:win
+      - name: Verify package contents and create checksums
+        run: npm run release:verify
+      - name: Smoke-test packaged application
+        run: |
+          Remove-Item Env:ELECTRON_RUN_AS_NODE -ErrorAction SilentlyContinue
+          $exe = Join-Path $PWD 'release/win-unpacked/BaiduPCS-Desktop.exe'
+          $process = Start-Process -FilePath $exe -ArgumentList '--smoke-test','--force-device-scale-factor=1.25' -WindowStyle Hidden -PassThru -Wait
+          if ($process.ExitCode -ne 0) { throw "Packaged smoke test failed: $($process.ExitCode)" }
+      - name: Upload release assets
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: windows-x64-release
+          path: |
+            release/BaiduPCS-Desktop-*-win-x64-setup.exe
+            release/BaiduPCS-Desktop-*-win-x64-portable.exe
+            release/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0
+      - name: Upload isolated test diagnostics
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: windows-test-diagnostics
+          path: |
+            artifacts/*.png
+            artifacts/*result*.json
+          if-no-files-found: ignore
+          retention-days: 7
+
+  publish:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Download verified release assets
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: windows-x64-release
+          path: release-assets
+      - name: Verify uploaded checksums
+        working-directory: release-assets
+        run: sha256sum --strict --check SHA256SUMS.txt
+      - name: Publish release after all uploads succeed
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          if existing=$(gh release view "$RELEASE_TAG" --json isDraft --jq '.isDraft' 2>/dev/null); then
+            if [ "$existing" != "true" ]; then
+              echo "Release already published; use a new version tag instead of replacing assets."
+              exit 1
+            fi
+          else
+            gh release create "$RELEASE_TAG" --verify-tag --draft --generate-notes --title "BaiduPCS-Desktop $RELEASE_TAG"
+          fi
+          gh release upload "$RELEASE_TAG" release-assets/*.exe release-assets/SHA256SUMS.txt --clobber
+          if [[ "$RELEASE_TAG" == *-* ]]; then
+            gh release edit "$RELEASE_TAG" --draft=false --prerelease --latest=false
+          else
+            gh release edit "$RELEASE_TAG" --draft=false --prerelease=false --latest
+          fi

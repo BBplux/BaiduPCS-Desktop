@@ -70,11 +70,13 @@ npm run dev
 # 目录式构建
 npm run package:dir
 
-# 便携单文件构建
+# 安装版与便携版构建
 npm run package
 ```
 
-目录式构建入口为 `release/win-unpacked/BaiduPCS-Desktop.exe`，便携构建产物也位于 `release/`。执行构建时会同步生成第三方依赖许可清单。
+目录式构建入口为 `release/win-unpacked/BaiduPCS-Desktop.exe`。`npm run package` 生成 Windows x64 安装版（`*-setup.exe`）和便携版（`*-portable.exe`），均位于 `release/`。执行构建时会同步生成第三方依赖许可清单。
+
+GitHub Actions 支持手动构建和版本标签自动发布。推送与项目版本一致的标签（如 `v0.1.0`）后，流程完成测试、打包和校验，再发布 GitHub Release；手动运行仅生成 Actions 构建产物。发布步骤和产物说明见 [自动构建与发布](docs/releasing.md)。
 
 日常修改只运行相关检查，例如：
 
@@ -145,6 +147,7 @@ THIRD_PARTY_NOTICES.md   第三方组件与资源说明
 本项目**原创代码**采用 [Apache License 2.0](LICENSE)，版权与适用范围见 [NOTICE](NOTICE)。
 
 ## 免责声明
+
 本项目仅供学习和研究使用，请勿用于商业用途。使用本工具产生的任何问题与本项目无关。
 
 ## 致谢

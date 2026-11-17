@@ -2,69 +2,85 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
-const version = "v2.4.1";
+
+const metadata = JSON.parse(
+  await fs.readFile("vendor/backend/version.json", "utf8"),
+);
+const { version, archiveSha256 } = metadata;
+if (!/^v\d+\.\d+\.\d+$/.test(version) || !/^[a-f0-9]{64}$/.test(archiveSha256))
+  throw new Error("Invalid pinned backend version or SHA-256");
 const name = `BaiduPCS-Rust-${version}-windows-x86_64`;
-await fs.mkdir(".cache", { recursive: true });
-const zip = `.cache/backend-${version}.zip`;
+const cache = path.resolve(".cache");
+await fs.mkdir(cache, { recursive: true });
+const zip = path.join(cache, `backend-${version}.zip`);
+const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
+let bytes;
 try {
-  await fs.access(zip);
-} catch {
-  const res = await fetch(
-    `https://github.com/komorebiCarry/BaiduPCS-Rust/releases/download/${version}/${name}.zip`,
-  );
-  if (!res.ok) throw new Error(`Backend download: ${res.status}`);
-  await fs.writeFile(zip, Buffer.from(await res.arrayBuffer()));
+  bytes = await fs.readFile(zip);
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
 }
-const digest = createHash("sha256")
-  .update(await fs.readFile(zip))
-  .digest("hex");
-const release = await fetch(
-  `https://api.github.com/repos/komorebiCarry/BaiduPCS-Rust/releases/tags/${version}`,
-).then((r) => r.json());
-const expected = release.assets?.find((a) => a.name === `${name}.zip`)?.digest;
-if (expected && expected !== `sha256:${digest}`)
-  throw new Error("Backend archive checksum mismatch");
-try {
-  await fs.access(
-    path.join(".cache", `backend-${version}`, name, "baidu-netdisk-rust.exe"),
+if (!bytes || hash(bytes) !== archiveSha256) {
+  const url = `https://github.com/komorebiCarry/BaiduPCS-Rust/releases/download/${version}/${name}.zip`;
+  console.log(`Downloading backend ${version}`);
+  // Windows includes curl; its native network support also works with local proxies.
+  execFileSync(
+    "curl.exe",
+    [
+      "--fail",
+      "--location",
+      "--retry",
+      "2",
+      "--connect-timeout",
+      "20",
+      "--max-time",
+      "180",
+      "--silent",
+      "--show-error",
+      "--output",
+      `${zip}.tmp`,
+      url,
+    ],
+    { windowsHide: true, stdio: "inherit" },
   );
-} catch {
+  bytes = await fs.readFile(`${zip}.tmp`);
+  if (hash(bytes) !== archiveSha256)
+    throw new Error("Backend archive SHA-256 mismatch");
+  await fs.rename(`${zip}.tmp`, zip);
+}
+// License and version metadata are reviewed, pinned files in the repository.
+const license = await fs.readFile("vendor/backend/LICENSE", "utf8");
+if (!license.includes("Apache License"))
+  throw new Error("Pinned backend license is missing");
+const extracted = await fs.mkdtemp(path.join(cache, "backend-extract-"));
+try {
   execFileSync(
     "powershell.exe",
     [
       "-NoProfile",
+      "-NonInteractive",
       "-Command",
-      `Add-Type -AssemblyName System.IO.Compression.FileSystem; [IO.Compression.ZipFile]::ExtractToDirectory('${zip}', '.cache/backend-${version}')`,
+      "Add-Type -AssemblyName System.IO.Compression.FileSystem; [IO.Compression.ZipFile]::ExtractToDirectory($env:PCS_BUILD_ARCHIVE, $env:PCS_BUILD_EXTRACT)",
     ],
-    { windowsHide: true },
-  );
-}
-await fs.mkdir("vendor/backend", { recursive: true });
-await fs.copyFile(
-  path.join(".cache", `backend-${version}`, name, "baidu-netdisk-rust.exe"),
-  "vendor/backend/baidu-netdisk-rust.exe",
-);
-{
-  const license = await fetch(
-    `https://api.github.com/repos/komorebiCarry/BaiduPCS-Rust/contents/LICENSE?ref=${version}`,
-  ).then((r) => r.json());
-  if (!license.content) throw new Error("Could not fetch backend LICENSE");
-  await fs.writeFile(
-    "vendor/backend/LICENSE",
-    Buffer.from(license.content, "base64"),
-  );
-}
-await fs.writeFile(
-  "vendor/backend/version.json",
-  JSON.stringify(
     {
-      version,
-      source: release.html_url,
-      archiveSha256: digest,
-      verifiedAgainstReleaseDigest: !!expected,
+      windowsHide: true,
+      env: {
+        ...process.env,
+        PCS_BUILD_ARCHIVE: zip,
+        PCS_BUILD_EXTRACT: extracted,
+      },
     },
-    null,
-    2,
-  ),
-);
-console.log(`Prepared ${version}; SHA256 ${digest}`);
+  );
+  const executable = await fs.readFile(
+    path.join(extracted, name, "baidu-netdisk-rust.exe"),
+  );
+  if (executable.toString("ascii", 0, 2) !== "MZ")
+    throw new Error("Invalid backend executable");
+  await fs.writeFile("vendor/backend/baidu-netdisk-rust.exe", executable);
+} finally {
+  const resolved = await fs.realpath(extracted);
+  if (!resolved.startsWith(cache + path.sep))
+    throw new Error("Unexpected extraction directory");
+  await fs.rm(resolved, { recursive: true, force: true });
+}
+console.log(`Prepared ${version}; verified pinned SHA-256 ${archiveSha256}`);

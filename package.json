@@ -6,6 +6,12 @@
   "private": true,
   "type": "module",
   "description": "无广告的百度网盘第三方桌面客户端",
+  "author": "BaiduPCS-Desktop contributors",
+  "homepage": "https://github.com/BBplux/BaiduPCS-Desktop",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BBplux/BaiduPCS-Desktop.git"
+  },
   "main": "electron/main.cjs",
   "scripts": {
     "postinstall": "node node_modules/electron/install.js",
@@ -16,12 +22,15 @@
     "start": "electron .",
     "test": "node --test tests/*.test.cjs",
     "test:desktop": "node scripts/smoke.mjs",
+    "test:release": "node scripts/check-release.mjs",
+    "release:verify": "node scripts/verify-release.mjs",
     "test:grid": "node scripts/run-electron-check.mjs . --grid-test",
     "test:columns": "node scripts/run-electron-check.mjs . --columns-test",
     "test:navigation": "node scripts/run-electron-check.mjs . --navigation-test",
     "backend:prepare": "node scripts/prepare-backend.mjs",
-    "package": "npm run build && electron-builder --win portable",
-    "package:dir": "npm run build && electron-builder --win dir --config.electronDist=node_modules/electron/dist",
+    "package": "npm run build && npm run package:win",
+    "package:win": "electron-builder --win --x64 --publish never --config.electronDist=node_modules/electron/dist",
+    "package:dir": "npm run build && electron-builder --win dir --publish never --config.electronDist=node_modules/electron/dist",
     "format": "prettier --write src electron scripts tests *.json *.ts *.html docs/*.md README.md THIRD_PARTY_NOTICES.md",
     "test:ui-style": "node scripts/run-electron-check.mjs . --ui-style-test",
     "test:breadcrumb": "node scripts/run-electron-check.mjs . --breadcrumb-test",
@@ -70,9 +79,23 @@
       }
     ],
     "win": {
-      "target": "portable",
+      "target": [
+        "nsis",
+        "portable"
+      ],
       "icon": "electron/assets/logo.ico",
       "signExecutable": false
+    },
+    "nsis": {
+      "artifactName": "BaiduPCS-Desktop-${version}-win-${arch}-setup.${ext}",
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "网盘桌面"
+    },
+    "portable": {
+      "artifactName": "BaiduPCS-Desktop-${version}-win-${arch}-portable.${ext}"
     }
   }
 }
