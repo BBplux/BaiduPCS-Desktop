@@ -1,0 +1,641 @@
+{
+  "source": "Baidu Netdisk",
+  "interfaceReference": "latest",
+  "assets": [
+    {
+      "destination": "src/assets/official/file-types/ic_ai.svg",
+      "entry": "renderer.js",
+      "moduleId": 1395,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "af0d61334de3b0f31cda1460acfa78db8d3dfeed0fab3460a840985a58c8c170"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_apk.svg",
+      "entry": "renderer.js",
+      "moduleId": 1397,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "5b8848fb7b4d21f978e960f9b7ee256518c62fe401330030f5f5adb08102756d"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_audio.svg",
+      "entry": "renderer.js",
+      "moduleId": 1401,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "9ec8aacffadcc2c754ae76210be504840685fcc94d11046f4cd34a28fc8eddfd"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_cad.svg",
+      "entry": "renderer.js",
+      "moduleId": 1402,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "d0aef9dba7690336ccbe8b77ecf6d7690cebb20e77ef9e04615631c0fb786b54"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_chm.svg",
+      "entry": "renderer.js",
+      "moduleId": 1403,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "6c482413577b56a925d812815ae9093d5280a6adc509edc0592ee0d28db40efe"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_code.svg",
+      "entry": "renderer.js",
+      "moduleId": 1404,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "49d524c4ddae1f6e6de0889311da407bc064e1fd7855a8dbf00abaa3ba5eba96"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_css.svg",
+      "entry": "renderer.js",
+      "moduleId": 1405,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "7d00ea5a40ba1a6a352ec753b9177390e6bcb0595066bd6d87b5c3e6c1f7a110"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_dmg.svg",
+      "entry": "renderer.js",
+      "moduleId": 1407,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "79d08c10a43b6b1e1b9895be70928efdbe5539458645ebd8697f3047bafa0e1c"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_doc.svg",
+      "entry": "renderer.js",
+      "moduleId": 1408,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "483f02eeda0a139718892d6fc3c7f68ec67e8f5271e29412c5915ed53b277d0f"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_epub.svg",
+      "entry": "renderer.js",
+      "moduleId": 1411,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "41861f5062fb8c6e71bb60b46813fc7c3d8802e595a5fe861260ab92aa60a957"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_excel.svg",
+      "entry": "renderer.js",
+      "moduleId": 1412,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "dc0c576f3a9888a28220464dee73676fb7254725a028b996b8094eed2b7e95a8"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_exe.svg",
+      "entry": "renderer.js",
+      "moduleId": 1413,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "b2601fe5d44895c8fae75ca8453b52347c8b01f5317be59eea2a4882ffe2124d"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_flash.svg",
+      "entry": "renderer.js",
+      "moduleId": 1415,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "c20300c0ccdbdc49eda63d5617647353b6076aed0dfd83f35ca4d32ba885af2e"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_folder-y.svg",
+      "entry": "renderer.js",
+      "moduleId": 1416,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "67d5271b4336cde164dc6f281904208005ea2f0783a7e3579799151a353e83c4"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_font.svg",
+      "entry": "renderer.js",
+      "moduleId": 1418,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "e39ed991dbb51cc42bcb0b5a268ddc05d63d462fd747a4cb209ca5b8ed847f22"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_image.svg",
+      "entry": "renderer.js",
+      "moduleId": 1423,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "3da4daa98415fd220812fbe3955f0e9ff686e9273bf332cc0bdaede6fed76257"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_js.svg",
+      "entry": "renderer.js",
+      "moduleId": 1424,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "e4f903281dd4a43b7667811180d05ac1b3fd42ce2b3ed397393fdaeeb5aaa23d"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_key.svg",
+      "entry": "renderer.js",
+      "moduleId": 1425,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "4f5cf50a8e2d1dbfbd7d4090f4f3064443cd02380e87653a7d225cfb6efcc265"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_link.svg",
+      "entry": "renderer.js",
+      "moduleId": 1428,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "ae88b2ed138cf38321bbc51b59104a375a3a9c540db72473e57a99f8b71e2da6"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_mm.svg",
+      "entry": "renderer.js",
+      "moduleId": 1430,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "8e9013c41bad7499d7bd76f11613f0458f8a4beef4b55ef7ff41b95dfba0f472"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_mmap.svg",
+      "entry": "renderer.js",
+      "moduleId": 1431,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "ff4dc4e4d3ff4beb7163cad089bbaa17ba3107373b6671bf2b7db80706c9b605"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_numbers.svg",
+      "entry": "renderer.js",
+      "moduleId": 1433,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "3233cd0f6cd3bd8dd99ad3c9d3f11e59a22ed136bb0ed24934224cd68c21a9f2"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_other.svg",
+      "entry": "renderer.js",
+      "moduleId": 1434,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "c853ac69edf9e9184febb76e8bedaaf4108bb60579ff46d1c1f3cd2d0bde15bc"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_pages.svg",
+      "entry": "renderer.js",
+      "moduleId": 1435,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "4ee90a002242b6e07f6bc931e583fb54246ad5b074554c9598a687c275bbeb5a"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_pdf.svg",
+      "entry": "renderer.js",
+      "moduleId": 1437,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "985716f0bd557e507ae86976a3702bf7721bb7d5ec730617766f1511d07566aa"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_ppt.svg",
+      "entry": "renderer.js",
+      "moduleId": 1439,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "299c06c2abbf7b8a688d62ce93089d8e0bc75bf6aa413df7a0f41a097a5107d9"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_psd.svg",
+      "entry": "renderer.js",
+      "moduleId": 1440,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "ef39d8c3a7f8db4a2b12847829496fa11fd7741fcd6a9107509babada41054e8"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_sketch.svg",
+      "entry": "renderer.js",
+      "moduleId": 1444,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "fa9d7371ceff7e91f9d5b81644658ac81606279cfacc50411e09ec8ec59ec694"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_torrent.svg",
+      "entry": "renderer.js",
+      "moduleId": 1446,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "a388178b4d1ef4f76aeb5922f160db544a9a0bdd8a03ce96d68044ed39ce8e30"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_txt.svg",
+      "entry": "renderer.js",
+      "moduleId": 1447,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "bba8a8af71c30d0f6838624d74c9c1dd2a3b2fea7a7009415c211bd49ecc03ab"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_vcard.svg",
+      "entry": "renderer.js",
+      "moduleId": 1450,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "2dd60699ba051353dd52d70a5da8f7160ceb2ce4b00b79427dff4185998c9e2c"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_video.svg",
+      "entry": "renderer.js",
+      "moduleId": 1451,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "93929a68206664d62e6ada7fc438d96488179f05964940f9fb5102864c08ab85"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_vsd.svg",
+      "entry": "renderer.js",
+      "moduleId": 1452,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "a143fb1796d8ea51ccbdb7b0cd3eeced3022b6e1fe04c14eee0b957dd3af6d08"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_web.svg",
+      "entry": "renderer.js",
+      "moduleId": 1453,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "57fb4aceb9ac29bab1b047db23273c1df4e9a0d0a0c27be84c7ae5ce62abdbc8"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_xmind.svg",
+      "entry": "renderer.js",
+      "moduleId": 1455,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "6b28c031c3f486bad0d8b26039aa34df4e992fb996ae8abf0b9e5d3af8115682"
+    },
+    {
+      "destination": "src/assets/official/file-types/ic_zip.svg",
+      "entry": "renderer.js",
+      "moduleId": 1457,
+      "sourceSha256": "352f72ea325bfefc8947bec042f531d26680da1303f364e6a020b1b78d143e3c",
+      "sha256": "906c6f50ecbf40ae825bd40680766fb4edac2cebf3ffba320aabf3a354a918d5"
+    },
+    {
+      "destination": "src/assets/official/empty-files.png",
+      "entry": "imgs/file-empty--empty.a1cfe49e.png",
+      "sha256": "42b07f91d41db168f037a92cb3002e6f14b073621d286273209486f4d6f0c334"
+    },
+    {
+      "destination": "src/assets/official/controls/checkbox-partial.svg",
+      "entry": "renderer.js",
+      "moduleId": 1241,
+      "sha256": "b9563ce29090bff527c3d9d195f716e5598ee8705f1461ff6e0f8b1c488e22f1"
+    },
+    {
+      "destination": "src/assets/official/controls/checkbox-partial-hover.svg",
+      "entry": "renderer.js",
+      "moduleId": 1242,
+      "sha256": "b359cc4816aeb000f9c545c48a8e0eac25b24b6d2f1163d1e13dfe303e31d202"
+    },
+    {
+      "destination": "src/assets/official/controls/header-sort-default.svg",
+      "entry": "68.js",
+      "moduleId": 1763,
+      "sha256": "89aefb937858ce01b532564a6792e22666df40b3afbade6204f7e1e19e7bcf97"
+    },
+    {
+      "destination": "src/assets/official/controls/header-sort-active.svg",
+      "entry": "68.js",
+      "moduleId": 1750,
+      "sha256": "f007b436ae0f56b922432b939451e835621ab924ebd0e8a0d4b274dd44ac773e"
+    },
+    {
+      "destination": "src/assets/official/controls/upload.svg",
+      "entry": "1.js",
+      "moduleId": 2566,
+      "sha256": "7e7c9277edd58ec90b4403c95c48b5e92dbbf7850f0226d4bc33b1f323d688ac"
+    },
+    {
+      "destination": "src/assets/official/controls/download.svg",
+      "entry": "1.js",
+      "moduleId": 2567,
+      "sha256": "b089378a5d243a1b77aee8c2d26319047f0d73809a3ebc15f9cbc8e74e424616"
+    },
+    {
+      "destination": "src/assets/official/controls/folder-plus.svg",
+      "entry": "1.js",
+      "moduleId": 1783,
+      "sha256": "0efd7a890d9c641671f85fa678f54fad9c4f7a18dfa71c71be402df06ee0b361"
+    },
+    {
+      "destination": "src/assets/official/controls/pause.svg",
+      "entry": "68.js",
+      "moduleId": 2149,
+      "sha256": "808418a436bfdc336d44c4582c60455daa4a68fa163d997a2ca3c3eed3b8ba76"
+    },
+    {
+      "destination": "src/assets/official/controls/play.svg",
+      "entry": "68.js",
+      "moduleId": 2150,
+      "sha256": "caf8252c381585c2b9357d7aed8966f587683ae87d881968c59b5612e564aec3"
+    },
+    {
+      "destination": "src/assets/official/controls/trash.svg",
+      "entry": "1.js",
+      "moduleId": 1759,
+      "sha256": "1e8c2584d5fd6e4707705bdff9735984bca5eb2b4709173c4630852b86fcb1d1"
+    },
+    {
+      "destination": "src/assets/official/controls/more.svg",
+      "entry": "1.js",
+      "moduleId": 2579,
+      "sha256": "6b926ee9758ef2a959649074ab0d66c286c981d8730c7ce774845ab2b5fae6e7"
+    },
+    {
+      "destination": "src/assets/official/controls/edit.svg",
+      "entry": "47.js",
+      "moduleId": 1812,
+      "sha256": "3ea5f54bb1345538ceb6ccef8bdce5ef300fe4d1f79fda84f3b9b3ccad93d6cc"
+    },
+    {
+      "destination": "src/assets/official/controls/move.svg",
+      "entry": "46.js",
+      "moduleId": 2467,
+      "sha256": "8423ca714379799d23b4f133d0ab88c3da1caca08d57e2a7ea11c783b586116b"
+    },
+    {
+      "destination": "src/assets/official/controls/list.svg",
+      "entry": "68.js",
+      "moduleId": 1874,
+      "sha256": "4115a7d3d276589cd83b66f6e708583e76660ce17ed6098359ab637c52722746"
+    },
+    {
+      "destination": "src/assets/official/controls/grid.svg",
+      "entry": "68.js",
+      "moduleId": 1875,
+      "sha256": "050848e4e4a3f3957c6a03cd5f101b23828dd5356c1e0a1e435891719f7ee1f3"
+    },
+    {
+      "destination": "src/assets/official/controls/row-location.svg",
+      "entry": "90.js",
+      "moduleId": 2549,
+      "sha256": "f8a1f2c482c3c7f0f0afbefbd84316c12c592d95598f17f08432e707fdf72997"
+    },
+    {
+      "destination": "src/assets/official/controls/row-pause.svg",
+      "entry": "5.js",
+      "moduleId": 2037,
+      "sha256": "0e26c4fddd732723f2c06858692a85768005dbfdf5241e344a0a2be4c85ee898"
+    },
+    {
+      "destination": "src/assets/official/controls/row-play.svg",
+      "entry": "5.js",
+      "moduleId": 2036,
+      "sha256": "ef2ed3f828e697d54b576779945d24af50d3df8b9352b52d4540fbc979fcaf28"
+    },
+    {
+      "destination": "src/assets/official/controls/menu.svg",
+      "entry": "45.js",
+      "moduleId": 2167,
+      "sha256": "1e09ef890c495c8b66855945f0c5bf820cb3bce1eec5142eacb00f74ce66e72f"
+    },
+    {
+      "destination": "src/assets/official/controls/menu-hover.svg",
+      "entry": "45.js",
+      "moduleId": 2168,
+      "sha256": "e41e77cbff6cec32bc1d1a9386b40d2397605b796dd3ef142c3dd915149db01f"
+    },
+    {
+      "destination": "src/assets/official/controls/menu-pressed.svg",
+      "entry": "45.js",
+      "moduleId": 2169,
+      "sha256": "9fa333616937eb10108108607f406886885eabd857f140b2876069cb79bbe3b2"
+    },
+    {
+      "destination": "src/assets/official/controls/back.svg",
+      "entry": "45.js",
+      "moduleId": 2350,
+      "sha256": "bd18b08207a5b0da303d9ea2f821ac08571d19a4503487341e1c1282d12cfdd5"
+    },
+    {
+      "destination": "src/assets/official/controls/back-hover.svg",
+      "entry": "45.js",
+      "moduleId": 2351,
+      "sha256": "8fab97c05593f3d694925d994a8c305c19fcd5c628100d8ef10dd5879c792b47"
+    },
+    {
+      "destination": "src/assets/official/controls/back-pressed.svg",
+      "entry": "45.js",
+      "moduleId": 2352,
+      "sha256": "8e45b355e07504ee18bd8ddae7cd1dd7950710ad2f29c61bddd8d9e83ce51317"
+    },
+    {
+      "destination": "src/assets/official/controls/back-disabled.svg",
+      "entry": "45.js",
+      "moduleId": 2353,
+      "sha256": "699a06933ac4b2cff792d3d86936bd8b0ca1f59e2737b8228921e9f128e29a50"
+    },
+    {
+      "destination": "src/assets/official/controls/refresh.svg",
+      "entry": "45.js",
+      "moduleId": 2358,
+      "sha256": "fc61fb3b498a2d27b7a974da65100dfe37e6b87b0b8d47d193fdd940e6e12f10"
+    },
+    {
+      "destination": "src/assets/official/controls/refresh-hover.svg",
+      "entry": "45.js",
+      "moduleId": 2359,
+      "sha256": "6eab8b487ac7d6bede8ddf546aa908794ab7daf82611caebdd4224cfbdc62ecb"
+    },
+    {
+      "destination": "src/assets/official/controls/refresh-pressed.svg",
+      "entry": "45.js",
+      "moduleId": 2360,
+      "sha256": "e01bfceabb70f5ac123c81d09d4defe4b9a68ff9631a919fc96bc41eb476da46"
+    },
+    {
+      "destination": "src/assets/official/controls/refresh-disabled.svg",
+      "entry": "45.js",
+      "moduleId": 2361,
+      "sha256": "42779f488568c08a1b95c19e823e2fb69ab2586d32f38de315aa7cfa4d412d4c"
+    },
+    {
+      "destination": "src/assets/official/controls/settings.png",
+      "entry": "47.js",
+      "moduleId": 2125,
+      "sha256": "ec216f8e33d0760779af0725d6e06bafcb5c97aa9b48c219d0568da9682d7347"
+    },
+    {
+      "destination": "src/assets/official/controls/logout.svg",
+      "entry": "45.js",
+      "moduleId": 2364,
+      "sha256": "9feca1ba9829858793e3cb43c478f968c013256e873e96edd6916480fa6b0166"
+    },
+    {
+      "destination": "src/assets/official/controls/window-min.svg",
+      "entry": "45.js",
+      "moduleId": 1903,
+      "sha256": "3f70151fa72ebda044350a5aa48f251f63a962ee8448569b9d8139edc1087366"
+    },
+    {
+      "destination": "src/assets/official/controls/window-min-hover.svg",
+      "entry": "45.js",
+      "moduleId": 1772,
+      "sha256": "245452ee10e0ae6ed9fd87a243b261df18c616bb992be21f9bbd981684045862"
+    },
+    {
+      "destination": "src/assets/official/controls/window-max.svg",
+      "entry": "45.js",
+      "moduleId": 1905,
+      "sha256": "427583dc395c2873c67ff36d5d0d63737a68fe540559032e51a382740d73ad2d"
+    },
+    {
+      "destination": "src/assets/official/controls/window-max-hover.svg",
+      "entry": "45.js",
+      "moduleId": 1774,
+      "sha256": "5a76367d41ad72448bc31b7f5bed3fa248d4c1d6811fbc45f75024d268e53ad8"
+    },
+    {
+      "destination": "src/assets/official/controls/window-close.svg",
+      "entry": "45.js",
+      "moduleId": 1906,
+      "sha256": "3e85c1edd2163cf9703add8f6ba1780cc659fc68baced526067cd38642e99612"
+    },
+    {
+      "destination": "src/assets/official/controls/window-close-hover.svg",
+      "entry": "45.js",
+      "moduleId": 1775,
+      "sha256": "aab6323d2a942b604c0cb6dc6afbdb3399d1df95e260041a08fdaf8b4d6836ca"
+    },
+    {
+      "destination": "src/assets/official/controls/transfer.svg",
+      "entry": "45.js",
+      "moduleId": 3522,
+      "sha256": "9369d78d574cf98e743b95cf4899e78e678c6cb3b90991f689132df345054d11"
+    },
+    {
+      "destination": "src/assets/official/controls/transfer-hover.svg",
+      "entry": "45.js",
+      "moduleId": 4680,
+      "sha256": "9181e6b561e29d934065e3f39c478797693a3636e82be38a12d687cc0b3b43ed"
+    },
+    {
+      "destination": "src/assets/official/controls/transfer-pressed.svg",
+      "entry": "45.js",
+      "moduleId": 4688,
+      "sha256": "a0f24a2771bb408e618363b4f88a839923200f58ac309f7aa29f81e117de2bd0"
+    },
+    {
+      "destination": "src/assets/official/controls/transfer-selected.svg",
+      "entry": "45.js",
+      "moduleId": 4696,
+      "sha256": "a30e2e2acce2ee78529a4f4d7b236fb9a9649a73e48a9351e77d2b31cdb3dfbc"
+    },
+    {
+      "destination": "src/assets/official/brand/home.svg",
+      "entry": "45.js",
+      "moduleId": 4666,
+      "sha256": "8491090539cd3224c8c15b0f494b9c4a063edca44384df7f5d7bda317882c845"
+    },
+    {
+      "destination": "src/assets/official/brand/tab.svg",
+      "entry": "renderer.js",
+      "moduleId": 431,
+      "sha256": "9575a7249bf6f5b6baaa3f4d19561a625deaa7230cf0eaced597cc1beed6c6ef"
+    },
+    {
+      "destination": "src/assets/official/brand/floating.svg",
+      "entry": "76.js",
+      "moduleId": 4514,
+      "sha256": "1e43ea821f285291efd83f25bd5476dd30472863ff7701f166f0cd8a93fa4abe"
+    },
+    {
+      "destination": "src/assets/official/empty-download.jpg",
+      "entry": "90.js",
+      "moduleId": 2889,
+      "sha256": "8124f750c5926e7eb5137738a83a501867fd4c249c5258ed4401ff497e55ae0f"
+    },
+    {
+      "destination": "src/assets/official/empty-upload.jpg",
+      "entry": "57.js",
+      "moduleId": 3339,
+      "sha256": "3faec79c8512a3bf16a74baa8f2d13ad168b87ab439c0f1a801ad02877335f93"
+    },
+    {
+      "destination": "src/assets/official/union-design-icons.woff2",
+      "entry": "renderer.js",
+      "moduleId": 1069,
+      "sha256": "95154cfbed774be264981157fa2a2bfb665748aa607eb888b3db190208984605"
+    },
+    {
+      "destination": "src/assets/official/controls/sort.svg",
+      "entry": "47.js",
+      "moduleId": 2173,
+      "sha256": "4765283ba4925958c589964be2bf17aba7498737157ee01a8cff946a46f3d3bd"
+    },
+    {
+      "destination": "src/assets/official/controls/forward.svg",
+      "entry": "45.js",
+      "moduleId": 2354,
+      "sha256": "534e69f75fe748a48d05adf85759fa9b85b019fb084115de427828a0420cde02"
+    },
+    {
+      "destination": "src/assets/official/controls/forward-hover.svg",
+      "entry": "45.js",
+      "moduleId": 2355,
+      "sha256": "79a866dfbc00cf29a937693af2ab0e29cd852100c54ac4a0107b0b310a523764"
+    },
+    {
+      "destination": "src/assets/official/controls/forward-pressed.svg",
+      "entry": "45.js",
+      "moduleId": 2356,
+      "sha256": "84fc368d614a4ef5ec436be4a4a985229753dbbeb9c31407c1014c37df1e638b"
+    },
+    {
+      "destination": "src/assets/official/controls/forward-disabled.svg",
+      "entry": "45.js",
+      "moduleId": 2357,
+      "sha256": "6357c81c1c0c432b921c9d40a10f8f37ba28f78e6507755f5718603537f3e799"
+    },
+    {
+      "destination": "src/assets/official/controls/settings-caption.svg",
+      "entry": "66.js",
+      "moduleId": 2972,
+      "sha256": "18e2596625ca1e28a0509860817b9a7a596d39a3b514598eb8cf38a90bba2b67"
+    },
+    {
+      "destination": "src/assets/official/controls/settings-startup.svg",
+      "entry": "66.js",
+      "moduleId": 5202,
+      "sha256": "e2d894ed01cd433a1df163534bad27333404b9796ea8cf4ef668b1d6ef5ef9b8"
+    },
+    {
+      "destination": "src/assets/official/controls/settings-transfer.svg",
+      "entry": "66.js",
+      "moduleId": 5204,
+      "sha256": "15b378643905140736728a7e57b4339105f46b6b28e64e3f546ee4eac9b1ab30"
+    },
+    {
+      "destination": "src/assets/official/controls/settings-about.svg",
+      "entry": "66.js",
+      "moduleId": 5209,
+      "sha256": "a6a754a8acae8a2d32e005b28023323a9f18e7ac30659d461db0635a064083ec"
+    },
+    {
+      "destination": "src/assets/official/controls/settings-close.svg",
+      "entry": "57.js",
+      "moduleId": 2477,
+      "sha256": "2fc6a251d22838d16b61462ee5931f624ec5a9986ce37b9862050bc5116a9898"
+    },
+    {
+      "destination": "src/assets/official/controls/sort-check.svg",
+      "entry": "renderer.js",
+      "moduleId": 401,
+      "sha256": "63ee134d9f8cbf026d0a92f7e1e8097689f5c5963b6c57ac93444a36920cbae3"
+    },
+    {
+      "destination": "src/assets/official/controls/breadcrumb-arrow.svg",
+      "entry": "renderer.js",
+      "moduleId": 991,
+      "sha256": "8fbd2fd1f14770359562cb3b6b0eae6a74aa62565cd862dce6cc218100354703"
+    },
+    {
+      "destination": "src/assets/official/controls/delete-warning.svg",
+      "entry": "45.js",
+      "moduleId": 2179,
+      "sha256": "f39809a5e4aaade1bb9c56c1c6ad28db33ed8162d7e589e370b6689f8ba9a88f"
+    },
+    {
+      "destination": "electron/assets/logo.ico",
+      "entry": "static/logo_win.ico",
+      "evidence": "main.js Windows window icon factory",
+      "sha256": "7721eec3b1be5e8cac7aa27df9dc5a953ae8c74270a71e11631d158e8af57821"
+    },
+    {
+      "destination": "electron/assets/tray.ico",
+      "entry": "static/online_icon.ico",
+      "evidence": "Pixels match installed BaiduNetdisk.exe APPSMALL_ICON and ONLINE_ICON resources (16x16)",
+      "sha256": "ddb8e447dd1577f67760b8eaa21134b54e312adb15ce2243d53ba6d411354af8"
+    },
+    {
+      "destination": "electron/assets/tray.png",
+      "entry": "static/online_icon.ico",
+      "transform": "Decode original 16x16 RGBA frame to PNG; no resizing",
+      "sha256": "a324e5eb5232e9ad35ab98ab1bb8b9ecf4f3ce9391f7fca6db4cde62ec3b265a"
+    }
+  ]
+}

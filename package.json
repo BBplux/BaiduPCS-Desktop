@@ -1,0 +1,78 @@
+{
+  "name": "baidupcs-desktop",
+  "productName": "网盘桌面",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "private": true,
+  "type": "module",
+  "description": "无广告的百度网盘第三方桌面客户端",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "postinstall": "node node_modules/electron/install.js",
+    "dev": "node scripts/dev.mjs",
+    "licenses:generate": "node scripts/generate-third-party-notices.mjs",
+    "prebuild": "npm run licenses:generate",
+    "build": "vue-tsc --noEmit && vite build",
+    "start": "electron .",
+    "test": "node --test tests/*.test.cjs",
+    "test:desktop": "node scripts/smoke.mjs",
+    "test:grid": "node scripts/run-electron-check.mjs . --grid-test",
+    "test:columns": "node scripts/run-electron-check.mjs . --columns-test",
+    "test:navigation": "node scripts/run-electron-check.mjs . --navigation-test",
+    "backend:prepare": "node scripts/prepare-backend.mjs",
+    "package": "npm run build && electron-builder --win portable",
+    "package:dir": "npm run build && electron-builder --win dir --config.electronDist=node_modules/electron/dist",
+    "format": "prettier --write src electron scripts tests *.json *.ts *.html docs/*.md README.md THIRD_PARTY_NOTICES.md",
+    "test:ui-style": "node scripts/run-electron-check.mjs . --ui-style-test",
+    "test:breadcrumb": "node scripts/run-electron-check.mjs . --breadcrumb-test",
+    "test:file-delete": "node scripts/run-electron-check.mjs . --file-delete-test"
+  },
+  "dependencies": {
+    "@ant-design/icons-vue": "7.0.1",
+    "ant-design-vue": "4.2.6",
+    "pinia": "4.1.0",
+    "vue": "3.5.44",
+    "vue-router": "5.4.0"
+  },
+  "devDependencies": {
+    "@babel/parser": "7.29.12",
+    "@vitejs/plugin-vue": "6.0.10",
+    "electron": "45.2.1",
+    "electron-builder": "26.18.0",
+    "prettier": "3.9.10",
+    "typescript": "6.0.3",
+    "vite": "8.3.5",
+    "vue-tsc": "3.3.14"
+  },
+  "build": {
+    "appId": "local.baidupan.desktop",
+    "productName": "网盘桌面",
+    "executableName": "BaiduPCS-Desktop",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json",
+      "LICENSE",
+      "NOTICE",
+      "THIRD_PARTY_NOTICES.md",
+      "licenses/**/*",
+      "docs/assets.md",
+      "docs/official-assets-manifest.json",
+      "!node_modules/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "vendor/backend",
+        "to": "backend"
+      }
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "electron/assets/logo.ico",
+      "signExecutable": false
+    }
+  }
+}

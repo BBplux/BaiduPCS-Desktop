@@ -1,0 +1,14 @@
+dom-scroll-into-view 2.0.1
+Source: https://github.com/yiminghe/dom-scroll-into-view
+Package: https://www.npmjs.com/package/dom-scroll-into-view/v/2.0.1
+
+The published package.json declares "license": "MIT".
+The published README.md contains the following statement:
+
+  ## License
+
+  dom-scroll-into-view is released under the MIT license.
+
+The installed package and the inspected upstream repository do not contain
+a separate license file. This notice preserves the published declaration;
+it does not invent a copyright holder or substitute a new license grant.

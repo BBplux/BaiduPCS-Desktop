@@ -1,0 +1,21 @@
+BaiduPCS-Desktop
+Copyright 2026 BaiduPCS-Desktop contributors
+
+Original code and documentation authored for this project are licensed under
+the Apache License, Version 2.0. See LICENSE for the full license text.
+
+Third-party components and assets retain their original copyrights and terms.
+This project's Apache-2.0 license does not relicense BaiduPCS-Rust, npm
+dependencies, Electron, or Baidu Netdisk artwork, icons, logos, and fonts.
+
+Baidu Netdisk assets include files under src/assets/official/ and
+electron/assets/. Their attribution and hashes are recorded in
+docs/official-assets-manifest.json. No permission to use third-party trademarks
+or redistribute proprietary assets is granted by this NOTICE or LICENSE.
+
+BaiduPCS-Rust is used as a separate backend process. Its original license,
+including upstream additional terms, is preserved in vendor/backend/LICENSE
+and accompanies the backend in packaged distributions.
+
+See THIRD_PARTY_NOTICES.md and licenses/ for third-party notices. This project
+is an independent third-party client and is not an official Baidu product.
