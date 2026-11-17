@@ -99,6 +99,40 @@ exports.run = async ({ mainWindow, backend, output }) => {
       output,
       "filename-transfer",
     );
+    if (process.argv.includes("--ui-style-test")) {
+      const selector = ".task-row .task-info strong";
+      const savedStyle = await js(
+        `document.querySelector(${JSON.stringify(selector)}).getAttribute('style')`,
+      );
+      try {
+        await js(
+          `document.querySelector(${JSON.stringify(selector)}).style.maxWidth='28px'`,
+        );
+        await require("./smoke-typography.cjs").checkFilenameInk(
+          mainWindow,
+          selector,
+          output,
+          "filename-transfer-narrow",
+        );
+        await js(
+          `document.querySelector(${JSON.stringify(selector)}).style.lineHeight='8px'`,
+        );
+        await assert.rejects(
+          require("./smoke-typography.cjs").checkFilenameInk(
+            mainWindow,
+            selector,
+            output,
+            "filename-transfer-clipping-control",
+          ),
+          /filename clips glyph pixels/,
+          "The ink check must still detect genuinely clipped descenders",
+        );
+      } finally {
+        await js(
+          `(()=>{const el=document.querySelector(${JSON.stringify(selector)});const style=${JSON.stringify(savedStyle)};if(style===null)el.removeAttribute('style');else el.setAttribute('style',style);})()`,
+        );
+      }
+    }
     assert.equal(
       await js("document.querySelectorAll('[data-task^=upload]').length"),
       0,
