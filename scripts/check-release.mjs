@@ -46,7 +46,7 @@ const checks = [
         "--force-device-scale-factor=1.25",
       ],
     ]),
-  ...[1, 1.5, 2].map((scale) => [
+  ...(hosted ? [] : [1, 1.5, 2]).map((scale) => [
     `smoke-${scale}`,
     [
       "scripts/run-electron-check.mjs",
