@@ -128,7 +128,9 @@ onUnmounted(stop);
             @click="official"
             >打开百度官方登录</a-button
           >
-          <p class="hint">登录成功后自动返回客户端</p>
+          <p class="hint">
+            完成网页验证后请停留在网盘页面，验证文件访问权限后会自动返回。若未返回，可改用扫码登录。
+          </p>
         </template>
         <template v-else-if="tab === 'qr'">
           <p class="scan-instruction">

@@ -26,6 +26,7 @@ const checks = [
     "--file-delete-test",
     "--ui-style-test",
     "--settings-test",
+    "--logout-test",
     "--window-size-test",
     "--floating-test",
     "--acceptance-test",

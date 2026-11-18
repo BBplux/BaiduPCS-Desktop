@@ -18,11 +18,20 @@ function cookieHeader(cookies) {
     const domain = c.domain.replace(/^\./, "");
     if (
       (domain === "baidu.com" || domain === "pan.baidu.com") &&
+      !!c.value &&
       !/[;\r\n]/.test(c.name + c.value)
-    )
-      map.set(c.name, c.value);
+    ) {
+      const rank = [(c.path || "/").length, Number(domain === "pan.baidu.com")];
+      const prior = map.get(c.name);
+      if (
+        !prior ||
+        rank[0] > prior.rank[0] ||
+        (rank[0] === prior.rank[0] && rank[1] > prior.rank[1])
+      )
+        map.set(c.name, { value: c.value, rank });
+    }
   }
-  return [...map].map(([k, v]) => `${k}=${v}`).join("; ");
+  return [...map].map(([k, v]) => `${k}=${v.value}`).join("; ");
 }
 function validateName(name) {
   if (

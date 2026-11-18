@@ -31,9 +31,11 @@ async function logout() {
     okText: "退出账号",
     cancelText: "取消",
     onOk: async () => {
-      await call("auth:logout");
-      store.user = null;
-      store.tasks = [];
+      try {
+        await call("auth:logout");
+      } catch (error) {
+        message.error(`退出账号失败：${(error as Error).message}`);
+      }
     },
   });
 }

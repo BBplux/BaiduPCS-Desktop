@@ -163,6 +163,8 @@ async function load(reset = true) {
   if (!store.user) {
     files.value = [];
     selected.value = [];
+    error.value = "";
+    loading.value = false;
     return;
   }
   loading.value = true;
@@ -352,7 +354,7 @@ watch(category, () => {
 });
 watch(grid, closeContext);
 watch(
-  () => store.user?.uid,
+  () => store.user,
   () => load(),
   { immediate: true },
 );
@@ -503,7 +505,13 @@ watch(
         @navigate="navigate"
       />
       <div v-if="error" class="inline-error">
-        {{ error }}<a-button type="link" @click="load()">重试</a-button>
+        {{ error
+        }}<a-button
+          v-if="/errno\s*=\s*-6(?!\d)/i.test(error)"
+          type="link"
+          @click="store.loginOpen = true"
+          >重新登录</a-button
+        ><a-button type="link" @click="load()">重试</a-button>
       </div>
       <div v-if="!store.user" class="empty-state">
         <EmptyIllustration />

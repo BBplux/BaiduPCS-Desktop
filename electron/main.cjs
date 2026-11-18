@@ -19,6 +19,11 @@ app.setName("网盘桌面");
 // settings, and saved transfers remain available. Test mode overrides it below.
 app.setPath("userData", path.join(app.getPath("appData"), "网盘桌面"));
 const { pathToFileURL } = require("node:url");
+const {
+  completeCookie,
+  verifyDrive,
+  importDriveCookie,
+} = require("./drive-login.cjs");
 const { Backend } = require("./backend.cjs");
 const { TransferFeed } = require("./transfer-feed.cjs");
 const { visibleBounds } = require("./window-bounds.cjs");
@@ -56,7 +61,9 @@ const windowSizeTest = process.argv.includes("--window-size-test");
 const settingsDragTest =
   process.argv.includes("--settings-drag-test") ||
   process.argv.includes("--settings-test");
+const logoutTest = process.argv.includes("--logout-test");
 const testMode =
+  logoutTest ||
   process.argv.includes("--smoke-test") ||
   restartVerification ||
   acceptanceTest ||
@@ -76,7 +83,13 @@ if (testMode)
             .find((arg) => arg.startsWith("--verification-root="))
             .slice("--verification-root=".length),
         )
-      : path.resolve(acceptanceTest ? ".runtime/acceptance" : ".runtime/smoke"),
+      : path.resolve(
+          logoutTest
+            ? ".runtime/logout"
+            : acceptanceTest
+              ? ".runtime/acceptance"
+              : ".runtime/smoke",
+        ),
   );
 let mainWindow,
   floatWindow,
@@ -91,6 +104,7 @@ let mainWindow,
   settingsFile,
   transferFeed,
   restarting;
+let loggingOut;
 let settingsWrite = Promise.resolve();
 let floatDrag,
   floatBatchBusy = false;
@@ -361,6 +375,7 @@ async function quitApp({ forUpdate = false } = {}) {
   if (quittingPromise) return quittingPromise;
   quittingPromise = (async () => {
     try {
+      if (loggingOut) await loggingOut.catch(() => {});
       const tasks = backend.state === "ready" ? await backend.tasks() : [];
       if (
         !testMode &&
@@ -415,13 +430,7 @@ async function quitApp({ forUpdate = false } = {}) {
   return quittingPromise;
 }
 async function loginWithCookie(cookies) {
-  if (
-    typeof cookies !== "string" ||
-    cookies.length > 64000 ||
-    !/(^|;\s*)BDUSS=/.test(cookies)
-  )
-    throw new Error("Cookie 中缺少 BDUSS");
-  const user = await backend.request("/auth/cookie/login", "POST", { cookies });
+  const user = await importDriveCookie(backend, cookies);
   send({ type: "logged-in", user });
   return user;
 }
@@ -466,31 +475,42 @@ async function openOfficialLogin() {
     if (pending || w.isDestroyed()) return;
     const current = w.webContents.getURL();
     if (!current.startsWith("https://pan.baidu.com/")) return;
-    const cookies = cookieHeader(
-      await authSession.cookies.get({ url: "https://pan.baidu.com/" }),
-    );
-    if (!/(^|;\s*)BDUSS=/.test(cookies) || cookies === lastCookie) return;
     pending = true;
-    lastCookie = cookies;
     try {
+      const cookies = cookieHeader(
+        await authSession.cookies.get({
+          url: "https://pan.baidu.com/api/list",
+        }),
+      );
+      if (w.isDestroyed() || !completeCookie(cookies) || cookies === lastCookie)
+        return;
+      lastCookie = cookies;
       await loginWithCookie(cookies);
-      w.close();
+      if (!w.isDestroyed()) w.close();
     } catch {
-      send({
-        type: "login-error",
-        message: "官方会话已获取，但后端验证未通过。请完成网页验证后重试。",
-      });
+      if (!w.isDestroyed()) {
+        w.setTitle("网盘验证未通过，请刷新网页重试或改用扫码登录");
+        send({
+          type: "login-error",
+          message:
+            "尚未验证网盘文件访问权限。请刷新官方页面重试，或改用扫码登录。",
+        });
+      }
     } finally {
       pending = false;
     }
   };
-  w.webContents.on("did-finish-load", capture);
+  w.webContents.on("did-finish-load", () => {
+    lastCookie = "";
+    void capture();
+  });
   interval = setInterval(capture, 2000);
   w.on("closed", () => {
     clearInterval(interval);
     loginWindow = null;
   });
-  await w.loadURL("https://pan.baidu.com/");
+  await authSession.clearStorageData({ storages: ["cookies"] });
+  if (!w.isDestroyed()) await w.loadURL("https://pan.baidu.com/");
 }
 async function uploadPaths(paths, dir) {
   if (!Array.isArray(paths) || paths.length === 0 || paths.length > 1000)
@@ -516,7 +536,39 @@ async function uploadPaths(paths, dir) {
   send({ type: "tasks-changed" });
   return results;
 }
+async function logoutAccount() {
+  if (quittingPromise || restarting)
+    throw Error("客户端正在重启或退出，请稍候");
+  const { active_uid } = await backend.request("/accounts/list");
+  loginWindow?.close();
+  const login = session.fromPartition("official-login");
+  await login.clearStorageData();
+  await login.clearCache();
+  if (active_uid != null) {
+    // Stop pauses transfers and waits for the kernel to exit. Do not use the
+    // kernel account-deletion API: it also removes the user's transfer history.
+    await backend.stop();
+    try {
+      await require("./account-logout.cjs").forgetCurrentAccount(
+        path.join(backend.directory, "config"),
+        active_uid,
+      );
+      transferFeed.tasks.clear();
+      send({ type: "logged-out" });
+    } finally {
+      await backend.start();
+      if (backend.state === "ready") transferFeed.start();
+    }
+  } else send({ type: "logged-out" });
+}
 async function dispatch(command, p = {}) {
+  if (
+    loggingOut &&
+    (command === "backend:restart" ||
+      (command.startsWith("auth:") &&
+        !["auth:user", "auth:logout"].includes(command)))
+  )
+    throw Error("正在退出账号，请稍候");
   switch (command) {
     case "status":
       return { ...backend.status(), connection: transferFeed?.mode };
@@ -581,28 +633,21 @@ async function dispatch(command, p = {}) {
       return backend.request("/auth/user");
     case "auth:qr":
       return backend.request("/auth/qrcode/generate", "POST");
-    case "auth:qr-status":
-      return backend.request(
+    case "auth:qr-status": {
+      const result = await backend.request(
         `/auth/qrcode/status?sign=${encodeURIComponent(p.sign)}`,
       );
+      if (result.status === "success") await verifyDrive(backend);
+      return result;
+    }
     case "auth:logout": {
-      await backend.pauseActive();
-      await backend.request("/auth/logout", "POST");
-      loginWindow?.close();
-      await session.fromPartition("official-login").clearStorageData();
-      await session.fromPartition("official-login").clearCache();
-      // Upstream rolls account backups; remove credential-bearing remnants only after logout succeeds.
-      for (const file of [
-        "accounts.json.bak",
-        "session.json",
-        "session.json.bak",
-        "session.json.migrated",
-      ])
-        await fs.rm(path.join(backend.directory, "config", file), {
-          force: true,
-        });
-      send({ type: "logged-out" });
-      return;
+      if (loggingOut) return loggingOut;
+      loggingOut = logoutAccount();
+      try {
+        return await loggingOut;
+      } finally {
+        loggingOut = null;
+      }
     }
     case "files:list":
       return backend.request(
@@ -781,6 +826,8 @@ else {
         downloads: settings.downloadDir,
         safeStorage,
       });
+      if (logoutTest)
+        await require("./check-logout.cjs").prepare(backend.directory);
       transferFeed = new TransferFeed({
         backend,
         onTasks: (tasks) => send({ type: "tasks", tasks }),
@@ -894,7 +941,14 @@ else {
         }
       }
       if (backend.state === "ready") transferFeed.start();
-      if (windowSizeTest) {
+      if (logoutTest) {
+        await require("./check-logout.cjs").run({
+          mainWindow,
+          backend,
+          session,
+        });
+        await quitApp();
+      } else if (windowSizeTest) {
         transferFeed.stop();
         await require("./check-window-size.cjs").run({ app, mainWindow });
       } else if (uiStyleTest) {
